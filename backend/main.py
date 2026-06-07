@@ -46,12 +46,18 @@ if USE_CLOUDINARY:
         logger.error(f"Cloudinary config failed: {e}")
         USE_CLOUDINARY = False
 
-# Local uploads dir — only created/used when NOT on Vercel (no Cloudinary)
+# Local uploads dir — use /tmp on Vercel (read-only filesystem), local data/ otherwise
 if not USE_CLOUDINARY:
-    UPLOADS_DIR = os.path.join(BASE_DIR, "data", "uploads")
-    os.makedirs(UPLOADS_DIR, exist_ok=True)
+    _local_uploads = os.path.join(BASE_DIR, "data", "uploads")
+    try:
+        os.makedirs(_local_uploads, exist_ok=True)
+        UPLOADS_DIR = _local_uploads
+    except OSError:
+        # Vercel read-only filesystem — fall back to /tmp
+        UPLOADS_DIR = "/tmp/uploads"
+        os.makedirs(UPLOADS_DIR, exist_ok=True)
 else:
-    UPLOADS_DIR = "/tmp/uploads"   # writable on Vercel, but won't be used
+    UPLOADS_DIR = "/tmp/uploads"  # Cloudinary handles storage; /tmp never used
 
 ALLOWED_EXT = {".jpg", ".jpeg", ".png", ".gif", ".webp", ".heic", ".pdf"}
 MAX_FILE_MB = 10
