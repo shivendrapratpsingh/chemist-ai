@@ -29,10 +29,9 @@ import database as db
 logging.basicConfig(level=logging.INFO, format="%(asctime)s [%(levelname)s] %(message)s")
 logger = logging.getLogger("chemist")
 
+# BASE_DIR = repo root, regardless of whether we're invoked from backend/ or api/
 BASE_DIR    = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 FRONTEND    = os.path.join(BASE_DIR, "frontend")
-UPLOADS_DIR = os.path.join(BASE_DIR, "data", "uploads")
-os.makedirs(UPLOADS_DIR, exist_ok=True)
 
 # Cloudinary — only used when CLOUDINARY_URL is set
 CLOUDINARY_URL = os.environ.get("CLOUDINARY_URL", "")
@@ -41,6 +40,13 @@ if USE_CLOUDINARY:
     import cloudinary
     import cloudinary.uploader
     cloudinary.config(cloudinary_url=CLOUDINARY_URL)
+
+# Local uploads dir — only created/used when NOT on Vercel (no Cloudinary)
+if not USE_CLOUDINARY:
+    UPLOADS_DIR = os.path.join(BASE_DIR, "data", "uploads")
+    os.makedirs(UPLOADS_DIR, exist_ok=True)
+else:
+    UPLOADS_DIR = "/tmp/uploads"   # writable on Vercel, but won't be used
 
 ALLOWED_EXT = {".jpg", ".jpeg", ".png", ".gif", ".webp", ".heic", ".pdf"}
 MAX_FILE_MB = 10
@@ -85,8 +91,14 @@ async def lifespan(app: FastAPI):
 
 app = FastAPI(title="Rama Chemist", lifespan=lifespan)
 app.add_middleware(CORSMiddleware, allow_origins=["*"], allow_methods=["*"], allow_headers=["*"])
-app.mount("/static",   StaticFiles(directory=FRONTEND),    name="static")
-app.mount("/uploads",  StaticFiles(directory=UPLOADS_DIR), name="uploads")
+
+# Mount frontend static files only if the directory exists (it always does locally + on Vercel)
+if os.path.isdir(FRONTEND):
+    app.mount("/static", StaticFiles(directory=FRONTEND), name="static")
+
+# Mount local uploads only when not using Cloudinary
+if not USE_CLOUDINARY and os.path.isdir(UPLOADS_DIR):
+    app.mount("/uploads", StaticFiles(directory=UPLOADS_DIR), name="uploads")
 
 
 # ── Health ────────────────────────────────────────────────────────────────────
