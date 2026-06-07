@@ -33,13 +33,18 @@ logger = logging.getLogger("chemist")
 BASE_DIR    = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 FRONTEND    = os.path.join(BASE_DIR, "frontend")
 
-# Cloudinary — only used when CLOUDINARY_URL is set
+# Cloudinary — only used when CLOUDINARY_URL is set and valid
 CLOUDINARY_URL = os.environ.get("CLOUDINARY_URL", "")
-USE_CLOUDINARY = bool(CLOUDINARY_URL)
+USE_CLOUDINARY = CLOUDINARY_URL.startswith("cloudinary://")
 if USE_CLOUDINARY:
-    import cloudinary
-    import cloudinary.uploader
-    cloudinary.config(cloudinary_url=CLOUDINARY_URL)
+    try:
+        import cloudinary
+        import cloudinary.uploader
+        cloudinary.config(cloudinary_url=CLOUDINARY_URL)
+        logger.info("Cloudinary configured.")
+    except Exception as e:
+        logger.error(f"Cloudinary config failed: {e}")
+        USE_CLOUDINARY = False
 
 # Local uploads dir — only created/used when NOT on Vercel (no Cloudinary)
 if not USE_CLOUDINARY:
