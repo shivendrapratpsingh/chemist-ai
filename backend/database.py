@@ -143,10 +143,15 @@ def init_db():
     # name would otherwise survive and be shown by /api/shop/status. Matched
     # loosely (lower + LIKE) because the stored value has been hand-edited via
     # the admin Settings panel — e.g. 'RAMA chemist' — so an exact match misses.
+    # The LIKE patterns are bound as parameters, never inlined: psycopg2 does
+    # printf-style substitution whenever params are passed, so a literal '%' in
+    # the SQL is read as a format spec and raises. SQLite's '?' binding does no
+    # such substitution, which is why an inlined '%rama%' passes locally and
+    # only fails against Postgres.
     c.execute(
         f"UPDATE settings SET value = {PH} WHERE key = 'shop_name' "
-        f"AND (LOWER(value) LIKE '%rama%' OR LOWER(value) LIKE '%chemist%')",
-        ("Maa Gayatri Pharmacy",)
+        f"AND (LOWER(value) LIKE {PH} OR LOWER(value) LIKE {PH})",
+        ("Maa Gayatri Pharmacy", "%rama%", "%chemist%")
     )
 
     conn.commit()

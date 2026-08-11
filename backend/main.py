@@ -95,7 +95,13 @@ def valid_admin(identifier: str = "", password: str = "", token: str = "") -> bo
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
-    db.init_db()
+    # A raise here aborts startup and every route 500s — the whole site goes
+    # down over what is usually a one-off schema/migration problem. Log it and
+    # serve anyway: the tables already exist on an established deployment.
+    try:
+        db.init_db()
+    except Exception as e:
+        logger.error(f"init_db failed, continuing without it: {e}")
     logger.info("Maa Gayatri Pharmacy backend ready.")
     yield
 
