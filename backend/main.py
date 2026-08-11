@@ -103,6 +103,22 @@ async def lifespan(app: FastAPI):
 app = FastAPI(title="Maa Gayatri Pharmacy", lifespan=lifespan)
 app.add_middleware(CORSMiddleware, allow_origins=["*"], allow_methods=["*"], allow_headers=["*"])
 
+
+@app.middleware("http")
+async def no_stale_pages(request, call_next):
+    """Force revalidation of pages and scripts.
+
+    With no Cache-Control header a browser falls back to heuristic freshness
+    (~10% of the file's age), so a months-old index.html can be served from
+    cache for days after a deploy — the site appears not to update.
+    "no-cache" still allows storage; the ETag turns the recheck into a 304.
+    """
+    response = await call_next(request)
+    path = request.url.path
+    if path == "/" or path.endswith((".html", ".js", ".css")):
+        response.headers["Cache-Control"] = "no-cache, must-revalidate"
+    return response
+
 # Mount frontend static files only if the directory exists (it always does locally + on Vercel)
 if os.path.isdir(FRONTEND):
     app.mount("/static", StaticFiles(directory=FRONTEND), name="static")
