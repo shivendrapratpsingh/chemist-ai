@@ -3,23 +3,23 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Rama Chemist & Pharmacy</title>
+<title>Maa Gayatri Pharmacy</title>
 <style>
 *{margin:0;padding:0;box-sizing:border-box;}
 :root{
-  --bg:#030b18;--bg2:#040e1f;--card:#071828;--border:#0e3a5c;--border2:#1e6090;
-  --sapphire:#0284c7;--crystal:#38bdf8;--frost:#7dd3fc;--aurora:#bae6fd;--diamond:#e0f9ff;
+  --bg:#12030a;--bg2:#2b0713;--card:#240810;--border:#5a1622;--border2:#8a2a1f;
+  --wine:#b91c4a;--marigold:#ffb703;--amber:#ffc078;--palegold:#ffe9ae;--cream:#fff2e0;
   --gold:#fbbf24;--green:#10b981;--red:#f43f5e;
   --font:'Segoe UI',system-ui,sans-serif;
 }
-html,body{min-height:100vh;background:var(--bg);color:var(--diamond);font-family:var(--font);overflow-x:hidden;}
+html,body{min-height:100vh;background:var(--bg);color:var(--cream);font-family:var(--font);overflow-x:hidden;}
 
 /* Deep space background */
 body::before{content:'';position:fixed;inset:0;z-index:0;
-  background:radial-gradient(ellipse 100% 60% at 50% -5%,rgba(14,116,144,.4) 0%,transparent 70%),
-             radial-gradient(ellipse 60% 50% at 90% 30%,rgba(2,132,199,.18) 0%,transparent 60%),
-             radial-gradient(ellipse 70% 60% at 10% 70%,rgba(30,64,175,.2) 0%,transparent 60%),
-             linear-gradient(180deg,#030b18 0%,#040e1f 60%,#020810 100%);}
+  background:radial-gradient(ellipse 100% 60% at 50% -5%,rgba(150,30,60,.4) 0%,transparent 70%),
+             radial-gradient(ellipse 60% 50% at 90% 30%,rgba(185,28,74,.18) 0%,transparent 60%),
+             radial-gradient(ellipse 70% 60% at 10% 70%,rgba(120,20,50,.2) 0%,transparent 60%),
+             linear-gradient(180deg,#12030a 0%,#2b0713 60%,#080106 100%);}
 
 canvas{position:fixed;top:0;left:0;width:100%;height:100%;z-index:0;pointer-events:none;}
 
@@ -27,16 +27,16 @@ canvas{position:fixed;top:0;left:0;width:100%;height:100%;z-index:0;pointer-even
 .page{position:relative;z-index:1;}
 
 /* Nav */
-nav{display:flex;align-items:center;gap:14px;padding:16px 40px;background:rgba(4,14,31,.8);backdrop-filter:blur(16px);border-bottom:1px solid rgba(56,189,248,.12);position:sticky;top:0;z-index:100;flex-wrap:wrap;}
+nav{display:flex;align-items:center;gap:14px;padding:16px 40px;background:rgba(22,4,12,.8);backdrop-filter:blur(16px);border-bottom:1px solid rgba(255,138,31,.12);position:sticky;top:0;z-index:100;flex-wrap:wrap;}
 .nav-logo{display:flex;align-items:center;gap:10px;text-decoration:none;}
-.nav-logo-icon{font-size:22px;filter:drop-shadow(0 0 10px rgba(56,189,248,.7));}
-.nav-logo-text{font-size:18px;font-weight:900;letter-spacing:2px;background:linear-gradient(135deg,var(--aurora),var(--crystal));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.nav-logo-icon{font-size:22px;filter:drop-shadow(0 0 10px rgba(255,138,31,.7));}
+.nav-logo-text{font-size:18px;font-weight:900;letter-spacing:2px;background:linear-gradient(135deg,var(--palegold),var(--marigold));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
 .spacer{flex:1;}
 .nav-btn{display:inline-flex;align-items:center;gap:6px;padding:8px 20px;border-radius:22px;font-size:12px;font-weight:700;text-decoration:none;transition:all .2s;cursor:pointer;letter-spacing:.3px;}
-.nav-primary{background:linear-gradient(135deg,rgba(2,132,199,.7),rgba(14,116,144,.8));color:var(--aurora);border:1px solid rgba(56,189,248,.3);box-shadow:0 4px 16px rgba(56,189,248,.15);}
-.nav-primary:hover{box-shadow:0 4px 24px rgba(56,189,248,.35);transform:translateY(-1px);}
-.nav-ghost{background:transparent;color:var(--frost);border:1px solid rgba(56,189,248,.2);}
-.nav-ghost:hover{background:rgba(56,189,248,.08);border-color:rgba(56,189,248,.4);}
+.nav-primary{background:linear-gradient(135deg,rgba(185,28,74,.7),rgba(150,30,60,.8));color:var(--palegold);border:1px solid rgba(255,138,31,.3);box-shadow:0 4px 16px rgba(255,138,31,.15);}
+.nav-primary:hover{box-shadow:0 4px 24px rgba(255,138,31,.35);transform:translateY(-1px);}
+.nav-ghost{background:transparent;color:var(--amber);border:1px solid rgba(255,138,31,.2);}
+.nav-ghost:hover{background:rgba(255,138,31,.08);border-color:rgba(255,138,31,.4);}
 
 /* Status banner */
 #status-banner{display:flex;align-items:center;justify-content:center;gap:10px;padding:10px;font-size:13px;font-weight:700;letter-spacing:.5px;transition:all .3s;}
@@ -45,54 +45,54 @@ nav{display:flex;align-items:center;gap:14px;padding:16px 40px;background:rgba(4
 
 /* Hero */
 #hero{min-height:88vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:60px 20px;position:relative;}
-.hero-snowflakes{position:absolute;inset:0;pointer-events:none;overflow:hidden;}
-.snowflake{position:absolute;color:rgba(186,230,253,.4);font-size:20px;animation:snow linear infinite;}
-@keyframes snow{0%{transform:translateY(-30px) rotate(0);opacity:0;}10%{opacity:1;}90%{opacity:.5;}100%{transform:translateY(100vh) rotate(360deg);opacity:0;}}
+.hero-petals{position:absolute;inset:0;pointer-events:none;overflow:hidden;}
+.petal{position:absolute;color:rgba(255,150,60,.55);font-size:20px;text-shadow:0 0 10px rgba(255,120,40,.45);animation:petalfall linear infinite;}
+@keyframes petalfall{0%{transform:translateY(-30px) rotate(0);opacity:0;}10%{opacity:1;}90%{opacity:.5;}100%{transform:translateY(100vh) rotate(360deg);opacity:0;}}
 
-.hero-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(56,189,248,.08);border:1px solid rgba(56,189,248,.25);border-radius:22px;padding:7px 20px;font-size:11px;color:var(--frost);margin-bottom:28px;letter-spacing:1.5px;text-transform:uppercase;}
+.hero-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(255,138,31,.08);border:1px solid rgba(255,138,31,.25);border-radius:22px;padding:7px 20px;font-size:11px;color:var(--amber);margin-bottom:28px;letter-spacing:1.5px;text-transform:uppercase;}
 h1{font-size:clamp(40px,6.5vw,80px);font-weight:900;line-height:1.05;margin-bottom:22px;
-   background:linear-gradient(135deg,#fff 0%,var(--aurora) 30%,var(--crystal) 60%,#60a5fa 85%,#818cf8 100%);
+   background:linear-gradient(135deg,#fff 0%,var(--palegold) 30%,var(--marigold) 60%,#ff9f45 85%,#e0316b 100%);
    -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
-   filter:drop-shadow(0 0 40px rgba(56,189,248,.25));}
-.hero-sub{font-size:17px;color:rgba(186,230,253,.75);max-width:540px;line-height:1.75;margin-bottom:50px;}
+   filter:drop-shadow(0 0 40px rgba(255,138,31,.25));}
+.hero-sub{font-size:17px;color:rgba(255,233,174,.75);max-width:540px;line-height:1.75;margin-bottom:50px;}
 .hero-btns{display:flex;gap:16px;flex-wrap:wrap;justify-content:center;}
 .btn{display:inline-flex;align-items:center;gap:8px;padding:15px 36px;border-radius:32px;font-size:15px;font-weight:800;text-decoration:none;cursor:pointer;border:none;transition:all .3s;letter-spacing:.4px;}
-.btn-primary{background:linear-gradient(135deg,#0369a1,#0284c7,#0ea5e9);color:#fff;box-shadow:0 8px 32px rgba(56,189,248,.35);}
-.btn-primary:hover{transform:translateY(-3px);box-shadow:0 14px 44px rgba(56,189,248,.5);}
-.btn-ghost{background:rgba(56,189,248,.06);color:var(--aurora);border:1.5px solid rgba(56,189,248,.3);}
-.btn-ghost:hover{background:rgba(56,189,248,.14);transform:translateY(-2px);}
+.btn-primary{background:linear-gradient(135deg,#8f1436,#b91c4a,#ff8a1f);color:#fff;box-shadow:0 8px 32px rgba(255,138,31,.35);}
+.btn-primary:hover{transform:translateY(-3px);box-shadow:0 14px 44px rgba(255,138,31,.5);}
+.btn-ghost{background:rgba(255,138,31,.06);color:var(--palegold);border:1.5px solid rgba(255,138,31,.3);}
+.btn-ghost:hover{background:rgba(255,138,31,.14);transform:translateY(-2px);}
 
 /* Features */
 .section{padding:80px 40px;max-width:1100px;margin:0 auto;}
 .section-header{text-align:center;margin-bottom:50px;}
-.section-title{font-size:38px;font-weight:900;background:linear-gradient(135deg,var(--aurora),var(--crystal));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:10px;}
-.section-sub{font-size:14px;color:rgba(125,211,252,.6);}
+.section-title{font-size:38px;font-weight:900;background:linear-gradient(135deg,var(--palegold),var(--marigold));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:10px;}
+.section-sub{font-size:14px;color:rgba(255,192,120,.6);}
 .grid-4{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:20px;}
-.feat-card{background:rgba(7,24,40,.7);border:1px solid rgba(56,189,248,.14);border-radius:18px;padding:28px;text-align:center;transition:all .35s;position:relative;overflow:hidden;}
-.feat-card::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(56,189,248,.4),transparent);opacity:0;transition:opacity .3s;}
-.feat-card:hover{transform:translateY(-8px);border-color:rgba(56,189,248,.35);box-shadow:0 20px 60px rgba(56,189,248,.12);}
+.feat-card{background:rgba(36,8,16,.7);border:1px solid rgba(255,138,31,.14);border-radius:18px;padding:28px;text-align:center;transition:all .35s;position:relative;overflow:hidden;}
+.feat-card::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(255,138,31,.4),transparent);opacity:0;transition:opacity .3s;}
+.feat-card:hover{transform:translateY(-8px);border-color:rgba(255,138,31,.35);box-shadow:0 20px 60px rgba(255,138,31,.12);}
 .feat-card:hover::before{opacity:1;}
-.feat-icon{font-size:38px;margin-bottom:14px;display:block;filter:drop-shadow(0 4px 12px rgba(56,189,248,.3));}
-.feat-title{font-size:16px;font-weight:800;color:var(--aurora);margin-bottom:8px;}
-.feat-desc{font-size:12px;color:rgba(125,211,252,.65);line-height:1.7;}
+.feat-icon{font-size:38px;margin-bottom:14px;display:block;filter:drop-shadow(0 4px 12px rgba(255,138,31,.3));}
+.feat-title{font-size:16px;font-weight:800;color:var(--palegold);margin-bottom:8px;}
+.feat-desc{font-size:12px;color:rgba(255,192,120,.65);line-height:1.7;}
 
 /* QR */
 #qr-section{padding:80px 40px;text-align:center;}
-.qr-outer{display:inline-block;position:relative;padding:3px;border-radius:22px;background:linear-gradient(135deg,rgba(56,189,248,.5),rgba(99,102,241,.4),rgba(56,189,248,.3));}
-.qr-inner{background:rgba(7,24,40,.95);border-radius:20px;padding:32px;backdrop-filter:blur(10px);}
-#qr-img{width:190px;height:190px;border-radius:10px;display:block;margin:0 auto 14px;filter:drop-shadow(0 4px 16px rgba(56,189,248,.3));}
-.qr-label{font-size:12px;color:var(--frost);letter-spacing:.5px;}
+.qr-outer{display:inline-block;position:relative;padding:3px;border-radius:22px;background:linear-gradient(135deg,rgba(255,138,31,.5),rgba(224,49,107,.4),rgba(255,138,31,.3));}
+.qr-inner{background:rgba(36,8,16,.95);border-radius:20px;padding:32px;backdrop-filter:blur(10px);}
+#qr-img{width:190px;height:190px;border-radius:10px;display:block;margin:0 auto 14px;filter:drop-shadow(0 4px 16px rgba(255,138,31,.3));}
+.qr-label{font-size:12px;color:var(--amber);letter-spacing:.5px;}
 
 /* Steps */
 #how{padding:80px 40px;max-width:1000px;margin:0 auto;}
 .steps{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:16px;margin-top:40px;}
-.step{background:rgba(7,24,40,.6);border:1px solid rgba(56,189,248,.12);border-radius:16px;padding:24px;text-align:center;}
-.step-num{width:44px;height:44px;border-radius:50%;background:linear-gradient(135deg,#0369a1,#0ea5e9);color:#fff;font-size:17px;font-weight:900;display:flex;align-items:center;justify-content:center;margin:0 auto 14px;box-shadow:0 6px 20px rgba(56,189,248,.3);}
-.step-title{font-size:14px;font-weight:800;color:var(--aurora);margin-bottom:6px;}
-.step-desc{font-size:12px;color:rgba(125,211,252,.65);line-height:1.6;}
+.step{background:rgba(36,8,16,.6);border:1px solid rgba(255,138,31,.12);border-radius:16px;padding:24px;text-align:center;}
+.step-num{width:44px;height:44px;border-radius:50%;background:linear-gradient(135deg,#8f1436,#ff8a1f);color:#fff;font-size:17px;font-weight:900;display:flex;align-items:center;justify-content:center;margin:0 auto 14px;box-shadow:0 6px 20px rgba(255,138,31,.3);}
+.step-title{font-size:14px;font-weight:800;color:var(--palegold);margin-bottom:6px;}
+.step-desc{font-size:12px;color:rgba(255,192,120,.65);line-height:1.6;}
 
-footer{text-align:center;padding:32px;color:rgba(125,211,252,.3);font-size:12px;border-top:1px solid rgba(56,189,248,.08);}
-footer a{color:rgba(125,211,252,.5);text-decoration:none;}
+footer{text-align:center;padding:32px;color:rgba(255,192,120,.3);font-size:12px;border-top:1px solid rgba(255,138,31,.08);}
+footer a{color:rgba(255,192,120,.5);text-decoration:none;}
 
 /* ── MOBILE ── */
 @media(max-width:768px){
@@ -114,7 +114,7 @@ footer a{color:rgba(125,211,252,.5);text-decoration:none;}
 @media(max-width:480px){
   nav{flex-wrap:wrap;}
   .nav-btn{display:none;}
-  .nav-btn:first-of-type{display:inline-flex;}
+  nav a.nav-btn:nth-of-type(2){display:inline-flex;}
   .grid-4{grid-template-columns:1fr;}
   .steps{grid-template-columns:1fr;}
   #qr-img{width:140px;height:140px;}
@@ -125,9 +125,9 @@ footer a{color:rgba(125,211,252,.5);text-decoration:none;}
 
 
 .aurora-band{position:fixed;left:-20%;width:140%;border-radius:50%;filter:blur(5px);animation:aur linear infinite;z-index:0;pointer-events:none;}
-.ab1{top:8%;height:2px;background:linear-gradient(90deg,transparent,rgba(56,189,248,.6),rgba(139,92,246,.5),transparent);animation-duration:13s;}
-.ab2{top:22%;height:1px;background:linear-gradient(90deg,transparent,rgba(14,116,144,.5),rgba(56,189,248,.55),transparent);animation-duration:20s;animation-delay:-7s;}
-.ab3{top:65%;height:2px;background:linear-gradient(90deg,transparent,rgba(99,102,241,.4),rgba(56,189,248,.45),transparent);animation-duration:17s;animation-delay:-4s;}
+.ab1{top:8%;height:2px;background:linear-gradient(90deg,transparent,rgba(255,138,31,.6),rgba(255,138,31,.5),transparent);animation-duration:13s;}
+.ab2{top:22%;height:1px;background:linear-gradient(90deg,transparent,rgba(150,30,60,.5),rgba(255,138,31,.55),transparent);animation-duration:20s;animation-delay:-7s;}
+.ab3{top:65%;height:2px;background:linear-gradient(90deg,transparent,rgba(224,49,107,.4),rgba(255,138,31,.45),transparent);animation-duration:17s;animation-delay:-4s;}
 @keyframes aur{0%{transform:translateX(-20%) scaleY(1);}50%{transform:translateX(15%) scaleY(4);}100%{transform:translateX(-20%) scaleY(1);}}
 
 /* ── GLOBAL MOBILE FIX ── */
@@ -180,12 +180,28 @@ footer a{color:rgba(125,211,252,.5);text-decoration:none;}
   .stats-grid{grid-template-columns:repeat(2,1fr) !important;}
   .grid-4{grid-template-columns:1fr !important;}
   .steps{grid-template-columns:1fr !important;}
-  nav .nav-btn:not(:first-of-type){display:none !important;}
+  nav a.nav-btn:not(:nth-of-type(2)){display:none !important;}
 }
 
+
+/* ── brand lockup ── */
+.nav-logo-mark{width:26px;height:27px;flex:none;filter:drop-shadow(0 0 8px rgba(255,138,31,.5));}
+.nav-logo-text{display:flex;flex-direction:column;line-height:1.08;}
+.nlt-dev{font-family:'Noto Sans Devanagari','Nirmala UI','Mangal',sans-serif;font-size:10px;
+  font-weight:600;color:var(--amber);opacity:.9;letter-spacing:.3px;
+  -webkit-text-fill-color:currentColor;}
+.nlt-en{font-size:13px;font-weight:900;letter-spacing:1.5px;
+  background:linear-gradient(135deg,var(--palegold),var(--marigold));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+@media(max-width:600px){
+  .nav-logo-mark{width:22px;height:23px;}
+  .nlt-dev{font-size:9px;}
+  .nlt-en{font-size:11px !important;letter-spacing:1px !important;}
+}
 </style>
 </head>
 <body>
+<script src="/static/intro.js"></script>
 <canvas id="canvas"></canvas>
 <div class="aurora-band ab1"></div>
 <div class="aurora-band ab2"></div>
@@ -196,8 +212,8 @@ footer a{color:rgba(125,211,252,.5);text-decoration:none;}
 
 <nav>
   <a href="index.html" class="nav-logo">
-    <span class="nav-logo-icon">❄️</span>
-    <span class="nav-logo-text">RAMA CHEMIST</span>
+    <svg class="nav-logo-mark" viewBox="0 0 100 104" fill="none" aria-hidden="true"><circle cx="50" cy="34" r="24" stroke="rgba(255,192,120,.4)" stroke-width="2"/><g stroke="#ffb703" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M40 22 L44 11 L50 20 L56 11 L60 22"/><ellipse cx="50" cy="34" rx="9" ry="11"/><path d="M50 50 C44 57 42 68 50 74 C58 68 56 57 50 50 Z" fill="rgba(255,138,31,.25)"/><path d="M41 52 C32 58 29 70 38 75"/><path d="M59 52 C68 58 71 70 62 75"/><path d="M30 84 Q50 96 70 84"/></g></svg>
+    <span class="nav-logo-text"><span class="nlt-dev">माँ गायत्री</span><span class="nlt-en">MAA GAYATRI PHARMACY</span></span>
   </a>
   <div class="spacer"></div>
   <a href="order.html" class="nav-btn nav-primary">💊 Upload Prescription</a>
@@ -206,10 +222,10 @@ footer a{color:rgba(125,211,252,.5);text-decoration:none;}
 </nav>
 
 <section id="hero">
-  <div class="hero-snowflakes" id="snowflakes"></div>
-  <div class="hero-badge">❄️ Trusted Pharmacy Since 2010</div>
-  <h1>Your Health,<br>Guarded with Ice<br>Cold Precision ✨</h1>
-  <p class="hero-sub">Upload your doctor's prescription in seconds. Receive a unique order ID instantly. We prepare with royal care.</p>
+  <div class="hero-petals" id="petals"></div>
+  <div class="hero-badge">🪔 Serving with devotion since 2010</div>
+  <h1>Your Health,<br>Blessed with<br>Devoted Care 🙏</h1>
+  <p class="hero-sub">Upload your doctor's prescription in seconds. Receive a unique order ID instantly. We prepare it with the care of family.</p>
   <div class="hero-btns">
     <a href="order.html" class="btn btn-primary">💊 Upload Prescription</a>
     <a href="track.html" class="btn btn-ghost">🔍 Track My Order</a>
@@ -219,13 +235,13 @@ footer a{color:rgba(125,211,252,.5);text-decoration:none;}
 <section class="section">
   <div class="section-header">
     <div class="section-title">Why Choose Us?</div>
-    <div class="section-sub">Premium care with a crystalline touch</div>
+    <div class="section-sub">Seva, shuddhata aur vishwas</div>
   </div>
   <div class="grid-4">
     <div class="feat-card"><span class="feat-icon">📸</span><div class="feat-title">Snap & Send</div><div class="feat-desc">Photo your prescription and upload it in seconds. Simple, fast, precise.</div></div>
-    <div class="feat-card"><span class="feat-icon">💎</span><div class="feat-title">Crystal Order ID</div><div class="feat-desc">Every order gets a unique 5-character ID. Share it to track instantly.</div></div>
+    <div class="feat-card"><span class="feat-icon">🔖</span><div class="feat-title">Instant Order ID</div><div class="feat-desc">Every order gets a unique 5-character ID. Share it to track instantly.</div></div>
     <div class="feat-card"><span class="feat-icon">⚡</span><div class="feat-title">Swift Preparation</div><div class="feat-desc">Our pharmacist reviews and confirms your order with speed and accuracy.</div></div>
-    <div class="feat-card"><span class="feat-icon">🛡️</span><div class="feat-title">Privacy First</div><div class="feat-desc">Your prescription stays private. Secured and never shared.</div></div>
+    <div class="feat-card"><span class="feat-icon">🔐</span><div class="feat-title">Privacy First</div><div class="feat-desc">Your prescription stays private. Secured and never shared.</div></div>
   </div>
 </section>
 
@@ -237,7 +253,7 @@ footer a{color:rgba(125,211,252,.5);text-decoration:none;}
   <div class="qr-outer">
     <div class="qr-inner">
       <img id="qr-img" src="/api/qr" alt="QR Code"/>
-      <div class="qr-label">❄️ Scan to upload your prescription</div>
+      <div class="qr-label">🪔 Scan to upload your prescription</div>
     </div>
   </div>
 </section>
@@ -254,14 +270,14 @@ footer a{color:rgba(125,211,252,.5);text-decoration:none;}
   </div>
 </section>
 
-<footer>© 2025 Rama Chemist & Pharmacy · Made with ❄️ · <a href="login.html">Admin Login</a></footer>
+<footer>© 2026 Maa Gayatri Pharmacy · Made with 🪔 · <a href="login.html">Admin Login</a></footer>
 </div>
 
 <script>
 const API=window.location.origin;
 
 // Canvas frost particles
-// ── Crystal/frost particle system (performance-optimised) ──────────────────────────
+// ── Marigold petal particle system (performance-optimised) ──────────────────────────
 (function(){
   const c=document.getElementById('canvas'),ctx=c.getContext('2d');
   let W,H;
@@ -286,11 +302,11 @@ const API=window.location.origin;
       if(p.x<-40)p.x=W+40;if(p.x>W+40)p.x=-40;if(p.y<-40)p.y=H+40;if(p.y>H+40)p.y=-40;
       const o=p.op,s=p.size;
       ctx.save();ctx.translate(p.x,p.y);ctx.rotate(p.rot);
-      if(GLOW){ctx.shadowColor=`rgba(56,189,248,${o*.8})`;ctx.shadowBlur=s*2.5;}
-      if(p.type==='d'){ctx.rotate(Math.PI/4);ctx.fillStyle=`rgba(56,189,248,${o*.5})`;ctx.strokeStyle=`rgba(186,230,253,${o})`;ctx.lineWidth=.8;ctx.beginPath();ctx.rect(-s*.55,-s*.55,s*1.1,s*1.1);ctx.fill();ctx.stroke();}
-      else if(p.type==='h'){ctx.strokeStyle=`rgba(125,211,252,${o})`;ctx.lineWidth=.8;ctx.beginPath();for(let i=0;i<6;i++){const a=i*Math.PI/3;i?ctx.lineTo(s*Math.cos(a),s*Math.sin(a)):ctx.moveTo(s*Math.cos(a),s*Math.sin(a));}ctx.closePath();ctx.stroke();}
-      else if(p.type==='x'){ctx.strokeStyle=`rgba(186,230,253,${o})`;ctx.lineWidth=.8;ctx.beginPath();ctx.moveTo(-s*.65,0);ctx.lineTo(s*.65,0);ctx.moveTo(0,-s*.65);ctx.lineTo(0,s*.65);ctx.rotate(Math.PI/4);ctx.moveTo(-s*.45,0);ctx.lineTo(s*.45,0);ctx.moveTo(0,-s*.45);ctx.lineTo(0,s*.45);ctx.stroke();}
-      else{ctx.beginPath();ctx.arc(0,0,s*.35,0,Math.PI*2);ctx.fillStyle=`rgba(186,230,253,${o})`;ctx.fill();}
+      if(GLOW){ctx.shadowColor=`rgba(255,150,50,${o*.85})`;ctx.shadowBlur=s*2.5;}
+      if(p.type==='d'){ctx.fillStyle=`rgba(255,138,31,${o*.55})`;ctx.strokeStyle=`rgba(255,214,150,${o*.85})`;ctx.lineWidth=.7;ctx.beginPath();ctx.moveTo(0,-s*.62);ctx.bezierCurveTo(s*.5,-s*.3,s*.42,s*.42,0,s*.6);ctx.bezierCurveTo(-s*.42,s*.42,-s*.5,-s*.3,0,-s*.62);ctx.closePath();ctx.fill();ctx.stroke();}
+      else if(p.type==='h'){ctx.beginPath();ctx.arc(0,0,s*.5,0,Math.PI*2);ctx.fillStyle=`rgba(255,170,70,${o*.4})`;ctx.fill();ctx.beginPath();ctx.arc(0,0,s*.22,0,Math.PI*2);ctx.fillStyle=`rgba(255,226,170,${o*.9})`;ctx.fill();}
+      else if(p.type==='x'){ctx.strokeStyle=`rgba(255,214,150,${o*.55})`;ctx.lineWidth=.6;ctx.beginPath();ctx.moveTo(0,-s*.5);ctx.lineTo(0,s*.5);ctx.moveTo(-s*.5,0);ctx.lineTo(s*.5,0);ctx.stroke();}
+      else{ctx.beginPath();ctx.arc(0,0,s*.3,0,Math.PI*2);ctx.fillStyle=`rgba(255,214,150,${o})`;ctx.fill();}
       ctx.restore();
     });
   }
@@ -298,8 +314,8 @@ const API=window.location.origin;
 })();
 
 // Snowflakes in hero
-const sf=document.getElementById('snowflakes');
-for(let i=0;i<20;i++){const s=document.createElement('div');s.className='snowflake';s.textContent=['❄','❅','❆'][Math.floor(Math.random()*3)];s.style.cssText=`left:${Math.random()*100}%;top:${Math.random()*100}%;font-size:${10+Math.random()*16}px;animation-duration:${8+Math.random()*12}s;animation-delay:-${Math.random()*12}s;`;sf.appendChild(s);}
+const sf=document.getElementById('petals');
+for(let i=0;i<20;i++){const s=document.createElement('div');s.className='petal';s.textContent=['✿','❀','❁'][Math.floor(Math.random()*3)];s.style.cssText=`left:${Math.random()*100}%;top:${Math.random()*100}%;font-size:${10+Math.random()*16}px;animation-duration:${8+Math.random()*12}s;animation-delay:-${Math.random()*12}s;`;sf.appendChild(s);}
 
 // Shop status
 async function checkStatus(){

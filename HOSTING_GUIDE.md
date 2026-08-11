@@ -1,8 +1,8 @@
-# Rama Chemist — Hosting Guide
+# Maa Gayatri Pharmacy — Hosting Guide
 
 ## Admin Credentials (NEVER SHARE)
 ```
-Email    : pratapsinghsivendra21@gmail.com
+Email    : pratapsinghshivendra21@gmail.com
 Password : $Hivendra123
 ```
 
@@ -33,8 +33,8 @@ Password : $Hivendra123
    ```bash
    git init
    git add .
-   git commit -m "Rama Chemist"
-   git remote add origin https://github.com/YOUR_USERNAME/rama-chemist.git
+   git commit -m "Maa Gayatri Pharmacy"
+   git remote add origin https://github.com/YOUR_USERNAME/maa-gayatri.git
    git push -u origin main
    ```
 4. On Railway, select your repo
@@ -44,7 +44,7 @@ Password : $Hivendra123
    ```
    web: cd backend && python -m uvicorn main:app --host 0.0.0.0 --port $PORT
    ```
-7. Railway gives you a URL like: `https://rama-chemist.up.railway.app`
+7. Railway gives you a URL like: `https://maa-gayatri.up.railway.app`
 8. Done — runs 24/7 for free!
 
 ---
@@ -76,7 +76,7 @@ pip3 install -r requirements.txt
 
 # 4. Run with PM2 (keeps alive 24/7, auto-restarts on crash)
 npm install -g pm2
-pm2 start "cd backend && python3 -m uvicorn main:app --host 0.0.0.0 --port 8090" --name rama-chemist
+pm2 start "cd backend && python3 -m uvicorn main:app --host 0.0.0.0 --port 8090" --name maa-gayatri
 pm2 save
 pm2 startup   # auto-start on server reboot
 

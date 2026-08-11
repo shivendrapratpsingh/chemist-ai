@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Concept C — Mandala Torana · Maa Gayatri Pharmacy</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --char:#0a0a0d;--char2:#15110c;--wood:#1c130c;
+  --gold:#d4af37;--gold2:#f7e3a1;--copper:#b87333;--temple:#8b1a1a;
+  --cream:#f7ecd8;
+  --dev:'Noto Sans Devanagari','Nirmala UI','Mangal',sans-serif;
+  --font:'Segoe UI',system-ui,sans-serif;
+}
+html,body{height:100%;background:var(--char);color:var(--cream);font-family:var(--font);overflow-x:hidden}
+
+/* ══════════ INTRO ══════════ */
+#intro{position:fixed;inset:0;z-index:999;overflow:hidden;cursor:pointer}
+#intro.gone{pointer-events:none}
+
+/* temple doors */
+.door{position:absolute;top:0;bottom:0;width:50.4%;z-index:2;
+  background:
+    linear-gradient(90deg,rgba(0,0,0,.55),transparent 30%,transparent 70%,rgba(0,0,0,.6)),
+    repeating-linear-gradient(90deg,rgba(212,175,55,.05) 0 2px,transparent 2px 26px),
+    radial-gradient(ellipse 80% 60% at 50% 40%,#241a10 0%,#15110c 55%,#0a0a0d 100%);
+  transition:transform 1.25s cubic-bezier(.66,0,.24,1)}
+.door.l{left:0;border-right:1px solid rgba(212,175,55,.35);
+  box-shadow:inset -18px 0 40px -20px rgba(212,175,55,.5)}
+.door.r{right:0;border-left:1px solid rgba(212,175,55,.35);
+  box-shadow:inset 18px 0 40px -20px rgba(212,175,55,.5)}
+#intro.open .door.l{transform:translateX(-101%)}
+#intro.open .door.r{transform:translateX(101%)}
+/* brass studs on doors */
+.studs{position:absolute;inset:0;opacity:.55}
+.studs i{position:absolute;width:9px;height:9px;border-radius:50%;
+  background:radial-gradient(circle at 32% 30%,#f7e3a1,#b87333 60%,#5c3a12);
+  box-shadow:0 0 6px rgba(212,175,55,.35)}
+
+/* stage over doors */
+.stage{position:absolute;inset:0;z-index:4;display:flex;flex-direction:column;
+  align-items:center;justify-content:center;padding:18px;
+  transition:opacity .5s ease,transform .7s ease}
+#intro.open .stage{opacity:0;transform:scale(1.1)}
+
+/* torana arch */
+.torana{position:absolute;top:0;left:50%;transform:translateX(-50%);width:min(158vw,880px);z-index:5;
+  pointer-events:none;transition:opacity .4s ease}
+#intro.open .torana{opacity:0}
+/* only the arch strokes self-draw — not the bells nested inside */
+.torana > path{stroke:var(--gold);fill:none;stroke-linecap:round;
+  stroke-dasharray:1400;stroke-dashoffset:1400;animation:draw 1.9s ease-out .55s forwards}
+/* the translate lives on a wrapper <g>; CSS transform here would otherwise
+   override the SVG transform attribute and collapse every bell onto the origin */
+.bell{transform-box:fill-box;transform-origin:50% 0;opacity:0;
+  animation:bellIn .6s ease forwards,swing 2.8s ease-in-out .8s infinite}
+@keyframes bellIn{to{opacity:1}}
+@keyframes swing{0%,100%{transform:rotate(-6deg)}50%{transform:rotate(6deg)}}
+@keyframes draw{to{stroke-dashoffset:0}}
+
+/* warm sanctum glow behind the deity */
+.warm{position:absolute;left:0;right:0;top:50%;width:min(90vw,520px);aspect-ratio:1;margin:0 auto;
+  transform:translateY(-50%);z-index:3;pointer-events:none;opacity:0;
+  background:radial-gradient(circle,rgba(255,196,90,.20) 0%,rgba(212,175,55,.10) 34%,rgba(139,26,26,.10) 56%,transparent 72%);
+  animation:pl 2s ease 1.4s forwards}
+#intro.open .warm{opacity:0;transition:opacity .4s}
+
+/* mandala */
+.md{position:absolute;left:50%;top:50%;width:min(94vw,540px);aspect-ratio:1;
+  transform:translate(-50%,-50%);z-index:3;pointer-events:none}
+.md svg{width:100%;height:100%;animation:rot 60s linear infinite}
+.md .g1{animation:rotR 44s linear infinite;transform-origin:150px 150px}
+.md [data-draw]{stroke-dasharray:1600;stroke-dashoffset:1600;animation:draw 2.2s ease-out forwards}
+@keyframes rot{to{transform:rotate(360deg)}}
+@keyframes rotR{to{transform:rotate(-360deg)}}
+#intro.open .md{opacity:0;transition:opacity .5s ease}
+
+/* goddess */
+.devi{width:min(46vw,190px);height:auto;overflow:visible;opacity:0;
+  animation:deviIn 1.5s ease 1.85s forwards;filter:drop-shadow(0 0 10px rgba(212,175,55,.55))}
+@keyframes deviIn{from{opacity:0;transform:translateY(14px) scale(.94)}to{opacity:1;transform:none}}
+.devi .ln{stroke:var(--gold2);stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round;fill:none}
+.devi .ln.f{fill:rgba(212,175,55,.14)}
+.devi .halo{stroke:rgba(247,227,161,.45);fill:none;stroke-width:1}
+
+/* wordmark engraved on a plaque */
+.plaque{margin-top:16px;text-align:center;opacity:0;animation:pl 1.1s cubic-bezier(.2,.9,.3,1) 2.9s forwards;
+  padding:14px 30px;border:1px solid rgba(212,175,55,.35);border-radius:4px;
+  background:linear-gradient(180deg,rgba(212,175,55,.09),rgba(0,0,0,.28));
+  box-shadow:inset 0 0 30px rgba(212,175,55,.1)}
+@keyframes pl{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+.wm-dev{font-family:var(--dev);font-size:clamp(18px,4.6vw,26px);color:var(--gold2);
+  text-shadow:0 1px 0 rgba(0,0,0,.7),0 0 22px rgba(212,175,55,.45)}
+.wm-en{font-size:clamp(14px,3.6vw,20px);font-weight:900;letter-spacing:clamp(3px,1.3vw,6px);margin-top:7px;
+  background:linear-gradient(180deg,#fff5db,var(--gold) 55%,#8a6415);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.wm-sub{font-size:10px;letter-spacing:3.2px;text-transform:uppercase;color:rgba(247,227,161,.55);margin-top:9px}
+
+/* incense embers */
+.embers{position:absolute;inset:0;z-index:4;pointer-events:none;overflow:hidden}
+.embers i{position:absolute;bottom:-10px;width:2.5px;height:2.5px;border-radius:50%;background:var(--gold2);
+  box-shadow:0 0 7px rgba(212,175,55,.9);opacity:0;animation:up linear infinite}
+@keyframes up{0%{opacity:0;transform:translateY(0)}12%{opacity:.85}100%{opacity:0;transform:translateY(-100vh) translateX(28px)}}
+
+/* light spilling through the opening doors */
+.spill{position:absolute;left:50%;top:0;bottom:0;width:2px;margin-left:-1px;z-index:6;
+  background:linear-gradient(180deg,transparent,rgba(247,227,161,.95),transparent);
+  opacity:0;pointer-events:none}
+#intro.open .spill{animation:spill 1.1s ease forwards}
+@keyframes spill{0%{opacity:0;width:2px;margin-left:-1px}
+  30%{opacity:.62;width:90px;margin-left:-45px;filter:blur(22px)}
+  100%{opacity:0;width:100vw;margin-left:-50vw;filter:blur(70px)}}
+
+.skip{position:absolute;bottom:20px;left:50%;transform:translateX(-50%);z-index:7;
+  font-size:10.5px;letter-spacing:2.6px;text-transform:uppercase;color:rgba(247,227,161,.38);
+  opacity:0;animation:pl .8s ease 3.6s forwards}
+#intro.open .skip{opacity:0}
+
+/* ══════════ REVEALED SITE ══════════ */
+.site{position:relative;min-height:100vh;
+  background:radial-gradient(ellipse 110% 60% at 50% -8%,rgba(212,175,55,.16),transparent 62%),
+             radial-gradient(ellipse 60% 44% at 86% 32%,rgba(139,26,26,.20),transparent 62%),
+             linear-gradient(180deg,#15110c,#0a0a0d 62%,#060608)}
+nav{display:flex;align-items:center;gap:12px;padding:14px 26px;position:sticky;top:0;z-index:20;
+  background:rgba(10,10,13,.82);backdrop-filter:blur(14px);border-bottom:1px solid rgba(212,175,55,.18)}
+.lg{display:flex;align-items:center;gap:10px;text-decoration:none}
+.lg-mk{width:32px;height:32px;flex:none}
+.lg-dev{font-family:var(--dev);font-size:12px;color:var(--gold2);opacity:.85}
+.lg-en{font-size:13px;font-weight:900;letter-spacing:1.6px;
+  background:linear-gradient(135deg,#fff5db,var(--gold));-webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;background-clip:text}
+.sp{flex:1}
+.nb{padding:8px 16px;border-radius:6px;font-size:11.5px;font-weight:800;text-decoration:none;
+  border:1px solid rgba(212,175,55,.3);color:var(--gold2);background:rgba(212,175,55,.06)}
+.nb.pri{background:linear-gradient(135deg,#8b1a1a,#c9962a);color:#150f04;border-color:transparent;
+  box-shadow:0 6px 20px rgba(212,175,55,.24)}
+.banner{display:flex;align-items:center;justify-content:center;gap:9px;padding:9px;font-size:12.5px;
+  font-weight:800;background:rgba(16,185,129,.08);border-bottom:1px solid rgba(16,185,129,.18);color:#8ff0c4}
+.hero{min-height:74vh;display:flex;flex-direction:column;align-items:center;justify-content:center;
+  text-align:center;padding:54px 20px}
+.badge{display:inline-flex;gap:8px;font-size:10.5px;letter-spacing:2.2px;text-transform:uppercase;
+  color:var(--gold2);border:1px solid rgba(212,175,55,.3);background:rgba(212,175,55,.06);
+  border-radius:4px;padding:7px 18px;margin-bottom:24px}
+h1{font-size:clamp(32px,6.4vw,64px);font-weight:900;line-height:1.08;margin-bottom:16px;
+  background:linear-gradient(135deg,#fff8e7 0%,var(--gold2) 34%,var(--gold) 70%,var(--copper) 100%);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+  filter:drop-shadow(0 0 30px rgba(212,175,55,.2))}
+.hsub{font-size:15px;color:rgba(247,236,216,.7);max-width:520px;line-height:1.75;margin-bottom:34px}
+.btns{display:flex;gap:14px;flex-wrap:wrap;justify-content:center}
+.bt{padding:14px 32px;border-radius:8px;font-size:14.5px;font-weight:800;text-decoration:none;border:none}
+.bt.p{background:linear-gradient(135deg,#8b1a1a,#c9962a,#e5c35c);color:#160f03;box-shadow:0 10px 30px rgba(212,175,55,.28)}
+.bt.g{background:rgba(212,175,55,.07);color:var(--gold2);border:1.5px solid rgba(212,175,55,.3)}
+.note{position:fixed;left:50%;bottom:14px;transform:translateX(-50%);z-index:30;font-size:11px;
+  background:rgba(10,10,13,.9);border:1px solid rgba(212,175,55,.25);color:var(--gold2);
+  padding:8px 16px;border-radius:6px;backdrop-filter:blur(8px)}
+@media(max-width:600px){nav{padding:11px 14px}.nb:not(.pri){display:none}.hero{padding:38px 16px}}
+</style>
+</head>
+<body>
+
+<!-- ═══ INTRO ═══ -->
+<div id="intro">
+  <div class="door l"><div class="studs" id="studL"></div></div>
+  <div class="door r"><div class="studs" id="studR"></div></div>
+
+  <div class="warm"></div>
+
+  <!-- mandala -->
+  <div class="md">
+    <svg viewBox="0 0 300 300" fill="none">
+      <circle data-draw cx="150" cy="150" r="145" stroke="rgba(212,175,55,.35)" stroke-width="1" style="animation-delay:.15s"/>
+      <circle data-draw cx="150" cy="150" r="138" stroke="rgba(212,175,55,.5)" stroke-width="1.2" style="animation-delay:.3s"/>
+      <circle data-draw cx="150" cy="150" r="112" stroke="rgba(184,115,51,.55)" stroke-width="1" stroke-dasharray="6 5" style="animation-delay:.5s"/>
+      <circle data-draw cx="150" cy="150" r="74" stroke="rgba(212,175,55,.45)" stroke-width="1" style="animation-delay:.7s"/>
+      <g class="g1" id="mdPetals"></g>
+      <g id="mdTri"></g>
+      <g id="mdTicks"></g>
+    </svg>
+  </div>
+
+  <div class="embers" id="embers"></div>
+
+  <!-- torana arch -->
+  <svg class="torana" viewBox="0 0 760 210" fill="none">
+    <path d="M20 8 H740" stroke-width="2"/>
+    <path d="M40 8 V34 Q380 150 720 34 V8" stroke-width="1.6"/>
+    <path d="M62 8 V26 Q380 128 698 26 V8" stroke-width="1" stroke-dasharray="5 4"/>
+    <g id="toranaBells"></g>
+  </svg>
+
+  <div class="stage">
+    <svg class="devi" viewBox="0 0 240 300" fill="none" aria-label="Maa Gayatri in namaste">
+      <circle class="halo" cx="120" cy="92" r="56"/>
+      <circle class="halo" cx="120" cy="92" r="63" stroke-dasharray="1.5 6"/>
+      <g>
+        <path class="ln f" d="M96 76 L104 48 L112 68 L120 38 L128 68 L136 48 L144 76 Q120 68 96 76 Z"/>
+        <circle class="ln f" cx="120" cy="46" r="3.4"/>
+        <path class="ln" d="M97 92 Q90 54 120 50 Q150 54 143 92"/>
+        <path class="ln" d="M97 96 Q88 124 95 146"/>
+        <path class="ln" d="M143 96 Q152 124 145 146"/>
+        <ellipse class="ln" cx="120" cy="94" rx="21" ry="25"/>
+        <circle class="ln f" cx="120" cy="80" r="2.6"/>
+        <path class="ln" d="M105 86 Q110 82.5 115.5 85"/>
+        <path class="ln" d="M135 86 Q130 82.5 124.5 85"/>
+        <path class="ln" d="M106 92 Q110.5 96 115.5 92.5"/>
+        <path class="ln" d="M134 92 Q129.5 96 124.5 92.5"/>
+        <path class="ln" d="M120 90 L119 102 Q119.5 104.5 122.5 104"/>
+        <path class="ln" d="M114 110 Q120 106.5 126 110 Q120 114.5 114 110 Z"/>
+        <path class="ln" d="M99 96 Q95 100 99 105"/>
+        <path class="ln" d="M141 96 Q145 100 141 105"/>
+        <circle class="ln f" cx="98" cy="110" r="3"/>
+        <circle class="ln f" cx="142" cy="110" r="3"/>
+        <path class="ln" d="M111 116 L110 128"/>
+        <path class="ln" d="M129 116 L130 128"/>
+        <path class="ln" d="M104 130 Q120 143 136 130"/>
+        <path class="ln" d="M100 136 Q120 155 140 136"/>
+        <path class="ln" d="M104 129 C82 140 68 178 63 218"/>
+        <path class="ln" d="M136 129 C158 140 172 178 177 218"/>
+        <path class="ln" d="M63 218 Q120 236 177 218"/>
+        <path class="ln" d="M96 150 Q104 190 96 218"/>
+        <path class="ln" d="M144 150 Q136 190 144 218"/>
+        <path class="ln" d="M105 134 C86 148 79 178 96 186 C105 190 111 185 113 179"/>
+        <path class="ln" d="M135 134 C154 148 161 178 144 186 C135 190 129 185 127 179"/>
+        <path class="ln" d="M89 176 Q96 180 101 176"/>
+        <path class="ln" d="M151 176 Q144 180 139 176"/>
+        <path class="ln f" d="M120 130 C113 139 109 152 109 164 C109 173 113 180 120 181 Z"/>
+        <path class="ln f" d="M120 130 C127 139 131 152 131 164 C131 173 127 180 120 181 Z"/>
+        <path class="ln" d="M120 130 L120 181"/>
+        <path class="ln" d="M117 136 C113 145 111 155 111.5 166"/>
+        <path class="ln" d="M123 136 C127 145 129 155 128.5 166"/>
+        <path class="ln f" d="M120 216 C108 224 106 238 120 245 C134 238 132 224 120 216 Z"/>
+        <path class="ln f" d="M96 220 C82 224 78 238 94 243 C107 240 108 226 96 220 Z"/>
+        <path class="ln f" d="M144 220 C158 224 162 238 146 243 C133 240 132 226 144 220 Z"/>
+        <path class="ln" d="M62 246 Q120 260 178 246"/>
+      </g>
+    </svg>
+
+    <div class="plaque">
+      <div class="wm-dev">॥ माँ गायत्री फार्मेसी ॥</div>
+      <div class="wm-en">MAA GAYATRI PHARMACY</div>
+      <div class="wm-sub">Est. 2010 · Sewa Bhav</div>
+    </div>
+  </div>
+
+  <div class="spill"></div>
+  <div class="skip">Tap anywhere to skip</div>
+</div>
+
+<!-- ═══ SITE BEHIND ═══ -->
+<div class="site">
+  <div class="banner"><span>🟢</span><span>Maa Gayatri Pharmacy is OPEN — ready to serve you</span></div>
+  <nav>
+    <a href="#" class="lg">
+      <svg class="lg-mk" viewBox="0 0 240 300"><g stroke="#d4af37" stroke-width="6" fill="none" stroke-linecap="round">
+        <circle cx="120" cy="92" r="56"/><path d="M120 130 C109 145 109 172 120 181 C131 172 131 145 120 130 Z" fill="rgba(212,175,55,.2)"/>
+        <path d="M105 134 C86 148 79 178 96 186"/><path d="M135 134 C154 148 161 178 144 186"/>
+        <ellipse cx="120" cy="94" rx="21" ry="25"/></g></svg>
+      <span><span class="lg-dev">माँ गायत्री</span><br><span class="lg-en">MAA GAYATRI PHARMACY</span></span>
+    </a>
+    <div class="sp"></div>
+    <a href="#" class="nb pri">💊 Upload Prescription</a>
+    <a href="#" class="nb">🔍 Track Order</a>
+    <a href="#" class="nb">👤 Account</a>
+  </nav>
+  <section class="hero">
+    <div class="badge">🛕 Serving with devotion since 2010</div>
+    <h1>Your Health,<br>Blessed with Care</h1>
+    <p class="hsub">Upload your doctor's prescription in seconds. Get a unique order ID instantly. We prepare it with the care of family.</p>
+    <div class="btns">
+      <a href="#" class="bt p">💊 Upload Prescription</a>
+      <a href="#" class="bt g">🔍 Track My Order</a>
+    </div>
+  </section>
+</div>
+
+<div class="note">Concept C — “Mandala Torana” · temple doors open</div>
+
+<script>
+const NS='http://www.w3.org/2000/svg';
+// mandala geometry
+(function(){
+  const p=document.getElementById('mdPetals'),t=document.getElementById('mdTri'),k=document.getElementById('mdTicks');
+  for(let i=0;i<12;i++){
+    const el=document.createElementNS(NS,'path');
+    el.setAttribute('d','M150 40 C126 70 126 100 150 118 C174 100 174 70 150 40 Z');
+    el.setAttribute('transform',`rotate(${i*30} 150 150)`);
+    el.setAttribute('stroke','rgba(212,175,55,.4)');el.setAttribute('stroke-width','1');
+    el.setAttribute('data-draw','');el.style.animationDelay=(0.85+i*0.045)+'s';
+    p.appendChild(el);
+  }
+  for(let i=0;i<8;i++){
+    const el=document.createElementNS(NS,'path');
+    el.setAttribute('d','M150 78 L176 128 L124 128 Z');
+    el.setAttribute('transform',`rotate(${i*45} 150 150)`);
+    el.setAttribute('stroke','rgba(184,115,51,.4)');el.setAttribute('stroke-width','.9');
+    el.setAttribute('data-draw','');el.style.animationDelay=(1.15+i*0.05)+'s';
+    t.appendChild(el);
+  }
+  for(let i=0;i<60;i++){
+    const a=(i/60)*Math.PI*2,r1=138,r2=i%5?142:148;
+    const l=document.createElementNS(NS,'line');
+    l.setAttribute('x1',150+Math.cos(a)*r1);l.setAttribute('y1',150+Math.sin(a)*r1);
+    l.setAttribute('x2',150+Math.cos(a)*r2);l.setAttribute('y2',150+Math.sin(a)*r2);
+    l.setAttribute('stroke','rgba(212,175,55,.45)');l.setAttribute('stroke-width','1');
+    l.setAttribute('data-draw','');l.style.animationDelay=(1.4+i*0.006)+'s';
+    k.appendChild(l);
+  }
+})();
+// hanging bells on the torana
+(function(){
+  const g=document.getElementById('toranaBells');
+  [175,262,350,450,538,625].forEach((x,i)=>{
+    const y=[46,72,92,92,72,46][i];
+    const wrap=document.createElementNS(NS,'g');
+    wrap.setAttribute('transform',`translate(${x} ${y})`);
+    const b=document.createElementNS(NS,'g');
+    b.setAttribute('class','bell');
+    b.style.animationDelay=(1.5+i*0.12)+'s, '+(1.9+i*0.18)+'s';
+    b.innerHTML=`<line x1="0" y1="0" x2="0" y2="16" stroke="#d4af37" stroke-width="1.2" stroke-dasharray="none"/>
+      <path d="M-9 34 Q-9 20 0 16 Q9 20 9 34 Z" fill="rgba(212,175,55,.18)" stroke="#d4af37" stroke-width="1.2" stroke-dasharray="none"/>
+      <line x1="-11" y1="34" x2="11" y2="34" stroke="#d4af37" stroke-width="1.4" stroke-dasharray="none"/>
+      <circle cx="0" cy="39" r="2.6" fill="#d4af37" stroke="none" stroke-dasharray="none"/>`;
+    wrap.appendChild(b);
+    g.appendChild(wrap);
+  });
+})();
+// door studs
+(function(){
+  [['studL',1],['studR',-1]].forEach(([id,dir])=>{
+    const el=document.getElementById(id);
+    for(let r=0;r<14;r++)for(let c=0;c<2;c++){
+      const s=document.createElement('i');
+      s.style.top=(4.5+r*6.8)+'%';
+      s.style[dir>0?'right':'left']=(5+c*8)+'%';
+      el.appendChild(s);
+    }
+  });
+})();
+// embers
+(function(){
+  const e=document.getElementById('embers');
+  for(let i=0;i<20;i++){
+    const s=document.createElement('i');
+    s.style.left=Math.random()*100+'%';
+    s.style.animationDuration=(7+Math.random()*6)+'s';
+    s.style.animationDelay=(Math.random()*9-5)+'s';
+    e.appendChild(s);
+  }
+})();
+// end + skip
+const intro=document.getElementById('intro');
+let ended=false;
+function end(){ if(ended)return; ended=true;
+  intro.classList.add('open');
+  setTimeout(()=>{intro.classList.add('gone');intro.style.display='none';},1400); }
+const timer=setTimeout(end,5000);
+intro.addEventListener('click',()=>{clearTimeout(timer);end();});
+addEventListener('keydown',()=>{clearTimeout(timer);end();});
+</script>
+</body>
+</html>

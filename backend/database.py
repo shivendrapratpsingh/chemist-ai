@@ -100,7 +100,7 @@ def init_db():
         c.execute("CREATE INDEX IF NOT EXISTS idx_orders_identifier ON orders(identifier)")
         c.execute("CREATE INDEX IF NOT EXISTS idx_orders_updated    ON orders(updated_at DESC)")
         c.execute("INSERT INTO settings (key,value) VALUES ('shop_open','1') ON CONFLICT DO NOTHING")
-        c.execute("INSERT INTO settings (key,value) VALUES ('shop_name','Rama Chemist & Pharmacy') ON CONFLICT DO NOTHING")
+        c.execute("INSERT INTO settings (key,value) VALUES ('shop_name','Maa Gayatri Pharmacy') ON CONFLICT DO NOTHING")
     else:
         c.execute("""
             CREATE TABLE IF NOT EXISTS users (
@@ -137,7 +137,17 @@ def init_db():
         c.execute("CREATE INDEX IF NOT EXISTS idx_orders_identifier ON orders(identifier)")
         c.execute("CREATE INDEX IF NOT EXISTS idx_orders_updated    ON orders(updated_at DESC)")
         c.execute("INSERT OR IGNORE INTO settings (key,value) VALUES ('shop_open','1')")
-        c.execute("INSERT OR IGNORE INTO settings (key,value) VALUES ('shop_name','Rama Chemist & Pharmacy')")
+        c.execute("INSERT OR IGNORE INTO settings (key,value) VALUES ('shop_name','Maa Gayatri Pharmacy')")
+
+    # Rebrand: the INSERTs above are no-ops on an existing database, so the old
+    # name would otherwise survive and be shown by /api/shop/status. Matched
+    # loosely (lower + LIKE) because the stored value has been hand-edited via
+    # the admin Settings panel — e.g. 'RAMA chemist' — so an exact match misses.
+    c.execute(
+        f"UPDATE settings SET value = {PH} WHERE key = 'shop_name' "
+        f"AND (LOWER(value) LIKE '%rama%' OR LOWER(value) LIKE '%chemist%')",
+        ("Maa Gayatri Pharmacy",)
+    )
 
     conn.commit()
     conn.close()
@@ -349,5 +359,5 @@ def get_dashboard_data(limit: int = 500) -> dict:
         "orders":    _rows(orders_rows),
         "stats":     {"total_orders": sum(by_status.values()), "by_status": by_status},
         "shop_open": (_row(shop_row)["value"] == "1") if shop_row else True,
-        "shop_name": _row(name_row)["value"] if name_row else "Rama Chemist & Pharmacy",
+        "shop_name": _row(name_row)["value"] if name_row else "Maa Gayatri Pharmacy",
     }

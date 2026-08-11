@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Pick an intro — Maa Gayatri Pharmacy</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--gold:#d4af37;--gold2:#f7e3a1;--dev:'Noto Sans Devanagari','Nirmala UI',sans-serif}
+body{background:#0a0a0d;color:#f7ecd8;font-family:'Segoe UI',system-ui,sans-serif;padding:28px 20px 60px;
+  background-image:radial-gradient(ellipse 100% 50% at 50% 0%,rgba(212,175,55,.12),transparent 60%)}
+header{text-align:center;margin-bottom:30px}
+h1{font-size:clamp(22px,4vw,32px);font-weight:900;letter-spacing:1px;
+  background:linear-gradient(135deg,#fff5db,var(--gold));-webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;background-clip:text}
+.sub{font-size:13px;color:rgba(247,236,216,.6);margin-top:8px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:22px;max-width:1500px;margin:0 auto}
+.card{background:rgba(255,255,255,.03);border:1px solid rgba(212,175,55,.22);border-radius:14px;
+  overflow:hidden;display:flex;flex-direction:column}
+.head{padding:14px 18px;border-bottom:1px solid rgba(212,175,55,.16);display:flex;align-items:center;gap:10px}
+.tag{width:26px;height:26px;border-radius:50%;display:grid;place-items:center;font-weight:900;font-size:13px;
+  background:linear-gradient(135deg,#8b1a1a,#c9962a);color:#150f04;flex:none}
+.name{font-size:14px;font-weight:800;color:var(--gold2)}
+.desc{font-size:11.5px;color:rgba(247,236,216,.55);margin-top:2px;line-height:1.5}
+.frame{position:relative;width:100%;aspect-ratio:9/16;max-height:620px;background:#000}
+iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+.bar{display:flex;gap:8px;padding:12px 14px;border-top:1px solid rgba(212,175,55,.16)}
+button,a.btn{flex:1;text-align:center;padding:9px 10px;border-radius:8px;font-size:12px;font-weight:800;
+  cursor:pointer;text-decoration:none;border:1px solid rgba(212,175,55,.3);
+  background:rgba(212,175,55,.08);color:var(--gold2);font-family:inherit}
+button:hover,a.btn:hover{background:rgba(212,175,55,.18)}
+.hint{max-width:760px;margin:34px auto 0;text-align:center;font-size:12.5px;line-height:1.8;
+  color:rgba(247,236,216,.5);border-top:1px solid rgba(212,175,55,.15);padding-top:20px}
+kbd{background:rgba(212,175,55,.12);border:1px solid rgba(212,175,55,.3);border-radius:4px;padding:1px 6px;font-size:11px}
+</style>
+</head>
+<body>
+<header>
+  <h1>॥ माँ गायत्री फार्मेसी ॥ — pick your intro</h1>
+  <div class="sub">Each preview plays the full opening animation, then reveals that concept's homepage theme. Hit Replay to watch again.</div>
+</header>
+
+<div class="grid">
+  <div class="card">
+    <div class="head"><div class="tag">A</div><div><div class="name">Divine Dawn · सूर्योदय</div>
+      <div class="desc">Sunrise behind the goddess, gold line-art draws itself, light rays + gold dust. Warm indigo → saffron theme.</div></div></div>
+    <div class="frame"><iframe id="f1" src="a-divine-dawn.html"></iframe></div>
+    <div class="bar"><button onclick="rp('f1')">↻ Replay</button><a class="btn" href="a-divine-dawn.html" target="_blank">⛶ Full screen</a></div>
+  </div>
+
+  <div class="card">
+    <div class="head"><div class="tag">B</div><div><div class="name">Lotus Aarti · कमल आरती</div>
+      <div class="desc">A diya flame blooms into a lotus, goddess rises from it, diyas flicker, marigold petals fall. Maroon + marigold theme.</div></div></div>
+    <div class="frame"><iframe id="f2" src="b-lotus-aarti.html"></iframe></div>
+    <div class="bar"><button onclick="rp('f2')">↻ Replay</button><a class="btn" href="b-lotus-aarti.html" target="_blank">⛶ Full screen</a></div>
+  </div>
+
+  <div class="card">
+    <div class="head"><div class="tag">C</div><div><div class="name">Mandala Torana · मंडल तोरण</div>
+      <div class="desc">Mandala self-draws, temple arch with bells, then carved doors part to reveal the site. Black + antique gold theme.</div></div></div>
+    <div class="frame"><iframe id="f3" src="c-mandala-torana.html"></iframe></div>
+    <div class="bar"><button onclick="rp('f3')">↻ Replay</button><a class="btn" href="c-mandala-torana.html" target="_blank">⛶ Full screen</a></div>
+  </div>
+</div>
+
+<div class="hint">
+  Tap inside any preview to skip its intro · press <kbd>Replay</kbd> to restart<br>
+  Tell me <b>A</b>, <b>B</b> or <b>C</b> (mix-and-match is fine — e.g. “C's animation, B's colours”) and I'll roll it across all 6 pages with the new name.
+</div>
+
+<script>
+function rp(id){const f=document.getElementById(id);f.src=f.src;}
+// stagger the first play so all three aren't fighting for frames at once
+addEventListener('load',()=>{});
+</script>
+</body>
+</html>

@@ -1,5 +1,5 @@
 """
-Rama Chemist — Pharmacy Order Management Backend
+Maa Gayatri Pharmacy — Pharmacy Order Management Backend
 
 LOCAL  (no env vars needed) → SQLite + local file storage
 VERCEL (env vars set)       → PostgreSQL + Cloudinary
@@ -65,7 +65,7 @@ MAX_FILE_MB = 10
 # ── Stateless admin token (HMAC-signed, survives cold starts) ─────────────────
 # Token format: "admin|<expiry_unix>|<hmac_hex>"
 # Signed with ADMIN_SECRET — set this as a Vercel env var for production.
-ADMIN_SECRET  = os.environ.get("ADMIN_SECRET", "rama-chemist-default-secret-2024")
+ADMIN_SECRET  = os.environ.get("ADMIN_SECRET", "maa-gayatri-default-secret-2024")
 TOKEN_TTL     = 7 * 24 * 3600   # 7 days
 
 def make_admin_token() -> str:
@@ -96,11 +96,11 @@ def valid_admin(identifier: str = "", password: str = "", token: str = "") -> bo
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     db.init_db()
-    logger.info("Rama Chemist backend ready.")
+    logger.info("Maa Gayatri Pharmacy backend ready.")
     yield
 
 
-app = FastAPI(title="Rama Chemist", lifespan=lifespan)
+app = FastAPI(title="Maa Gayatri Pharmacy", lifespan=lifespan)
 app.add_middleware(CORSMiddleware, allow_origins=["*"], allow_methods=["*"], allow_headers=["*"])
 
 # Mount frontend static files only if the directory exists (it always does locally + on Vercel)
@@ -121,7 +121,7 @@ def health():
 # ── Shop status ───────────────────────────────────────────────────────────────
 @app.get("/api/shop/status")
 def shop_status():
-    return {"open": db.is_shop_open(), "name": db.get_setting("shop_name") or "Rama Chemist"}
+    return {"open": db.is_shop_open(), "name": db.get_setting("shop_name") or "Maa Gayatri Pharmacy"}
 
 
 # ── QR Code ───────────────────────────────────────────────────────────────────
@@ -132,7 +132,7 @@ def get_qr(host: str = "localhost", port: int = 8090):
                        error_correction=qrcode.constants.ERROR_CORRECT_M)
     qr.add_data(url)
     qr.make(fit=True)
-    img = qr.make_image(fill_color="#0a1f5e", back_color="white")
+    img = qr.make_image(fill_color="#3b0a16", back_color="white")
     buf = io.BytesIO()
     img.save(buf, format="PNG")
     buf.seek(0)
@@ -197,7 +197,7 @@ async def upload_order(
             resource_type = "raw" if ext == ".pdf" else "image"
             result = cloudinary.uploader.upload(
                 content,
-                folder="rama-chemist/prescriptions",
+                folder="maa-gayatri/prescriptions",
                 resource_type=resource_type,
             )
             image_path = result["secure_url"]
@@ -330,7 +330,7 @@ def admin_get_settings(identifier: str = "", password: str = "", token: str = ""
     if not valid_admin(identifier, password, token):
         return _auth_fail()
     return {"success": True,
-            "shop_name": db.get_setting("shop_name") or "Rama Chemist & Pharmacy"}
+            "shop_name": db.get_setting("shop_name") or "Maa Gayatri Pharmacy"}
 
 
 @app.post("/api/admin/settings")
